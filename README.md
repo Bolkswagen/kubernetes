@@ -2,8 +2,8 @@
 ---
 
 ## 1. EKS
-Base user guide : https://docs.aws.amazon.com/ko_kr/eks/latest/userguide/what-is-eks.html
-<br/><br/>
+Base user guide : https://docs.aws.amazon.com/ko_kr/eks/latest/userguide/what-is-eks.html  
+<br/>
 
 ##### ▣ Metrics-server installation
 ```
@@ -26,8 +26,8 @@ kubectl get deployment metrics-server -n kube-system
 ```
 [ Reference ]  
 https://docs.aws.amazon.com/ko_kr/eks/latest/userguide/metrics-server.html  
-https://github.com/kubernetes-sigs/metrics-server/releases
-<br/><br/>
+https://github.com/kubernetes-sigs/metrics-server/releases  
+<br/>
 
 ##### ▣ Cluster autoscaler
 1. Create IAM policy
@@ -60,9 +60,9 @@ aws iam create-policy \
 
 
 
-[ Reference ]
-https://docs.aws.amazon.com/ko_kr/eks/latest/userguide/autoscaling.html
-
+[ Reference ]  
+https://docs.aws.amazon.com/ko_kr/eks/latest/userguide/autoscaling.html  
+<br/>
 
 
 
