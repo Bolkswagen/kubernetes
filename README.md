@@ -87,9 +87,9 @@ vi cluster-autoscaler-autodiscover.yaml
 #   namespace: kube-system
 ---
 ```
-Deployment manifast 부분에 어노테이션을 추가하고, **\<YOUR CLUSTER NAME\>** 을 현재 클러스터명으로 변경하고, 다음 옵션을 추가합니다.
-`--balance-similar-node-groups`
-`--skip-nodes-with-system-pods=false`
+① Deployment manifast 부분에 `cluster-autoscaler.kubernetes.io/safe-to-evict: 'false'` 어노테이션을 추가  
+② `<YOUR CLUSTER NAME>` 을 현재 클러스터명으로 변경  
+③ 다음 옵션을 추가 `--balance-similar-node-groups` `--skip-nodes-with-system-pods=false`  
 ```yaml
 // cluster-autoscaler-autodiscover.yaml
 ---
@@ -112,7 +112,7 @@ spec:
       annotations:
         prometheus.io/scrape: 'true'
         prometheus.io/port: '8085'
-        cluster-autoscaler.kubernetes.io/safe-to-evict: 'false'     # 어노테이션추가
+        cluster-autoscaler.kubernetes.io/safe-to-evict: 'false'     # ① 어노테이션추가
     spec:
       priorityClassName: system-cluster-critical
       securityContext:
@@ -137,9 +137,9 @@ spec:
             - --cloud-provider=aws
             - --skip-nodes-with-local-storage=false
             - --expander=least-waste
-            - --node-group-auto-discovery=asg:tag=k8s.io/cluster-autoscaler/enabled,k8s.io/cluster-autoscaler/<YOUR CLUSTER NAME>   # 클러스터명으로 변경
-            - --balance-similar-node-groups         # 옵션추가
-            - --skip-nodes-with-system-pods=false   # 옵션추가
+            - --node-group-auto-discovery=asg:tag=k8s.io/cluster-autoscaler/enabled,k8s.io/cluster-autoscaler/<YOUR CLUSTER NAME>   # ② 클러스터명으로 변경
+            - --balance-similar-node-groups         # ③ 옵션추가
+            - --skip-nodes-with-system-pods=false   # ③ 옵션추가
           volumeMounts:
             - name: ssl-certs
               mountPath: /etc/ssl/certs/ca-certificates.crt #/etc/ssl/certs/ca-bundle.crt for Amazon Linux Worker Nodes
@@ -150,7 +150,18 @@ spec:
           hostPath:
             path: "/etc/ssl/certs/ca-bundle.crt"
 ```
-수정을 완료하였으면 배포합니다.
+
+About `cluster-autoscaler.kubernetes.io/safe-to-evict` annotation  
+해당 어노테이션이 false로 들어가 있는 파드의 노드는 
+
+
+|제목|내용|설명|
+|---|---|---|
+|테스트1|테스트2|테스트3|
+|테스트1|테스트2|테스트3|
+|테스트1|테스트2|테스트3|
+
+수정을 완료하였으면 배포합니다.  
 ```bash
 kubectl apply -f cluster-autoscaler-autodiscover.yaml
 ```
