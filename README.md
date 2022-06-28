@@ -152,7 +152,7 @@ spec:
 ```
 
 About `cluster-autoscaler.kubernetes.io/safe-to-evict` annotation  
-해당 어노테이션이 false로 들어가 있는 파드의 노드는 
+해당 어노테이션이 false로 들어가 있는 파드의 노드는 줄어들지 않습니다. 이는 일반적인 파드에도 적용될 수 있으며 위의 경우는 클러스터 오토스케일러 파드에 적용됩니다.
 
 
 |제목|내용|설명|
